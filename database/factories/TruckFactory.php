@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+
 class TruckFactory extends Factory
 {
     /**
@@ -13,11 +14,14 @@ class TruckFactory extends Factory
     public function definition()
     {
         return [
-            'plate_no' => $this->faker->bothify('???-###'),
-            'Brand' => $this->faker->randomElements(['HINO', 'ISUZO', 'CHAVDAR', 'AVIA TRUCKS', 'ELVO']),
-            'model' => $this->faker->bothify('??-#####'),
-            'status' =>  $this->faker->randomElements(['', 'In-Service', 'Maintenance']),
-            'description' => $this->faker->paragraph(),
+            
+            'name' => $this->faker->name(),
+            'brand' => $this->faker->randomElement(array('Isuzo', 'Dongfeng', 'Sinotruk', 'JAC')),
+            'model' => $this->faker->bothify("##-???#"),
+            'plate_no' => $this->faker->bothify("###-????"),
+            'owner' => $this->faker->name(),
+            'status' => $this->faker->randomElement(array('', 'In-service', 'Maintenance')),
+            'description' => $this->faker->sentence,
         ];
     }
 }

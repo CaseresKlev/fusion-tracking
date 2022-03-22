@@ -5,6 +5,21 @@
 @section('company', 'active')
 
 @section('content')
+
+<style>
+#company-table .th {
+    border-bottom-width: 1px;
+    font-size: 1rem !important;
+    font-weight: bold;
+    color: red;
+}
+
+.icons-option a{
+  padding: 5px;
+}
+</style>
+
+
 <div class="panel-header panel-header-sm">
 </div>
 <div class="content">
@@ -12,131 +27,37 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
+
+         @include('include.ConfirmationMessages')
+
+
           <h4 class="card-title">COMPANY</h4>
           <p class="category">These module is for Company functions. You can add, edit and delete company here.</p>
         </div>
         <div class="card-body">
           <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-primary">
-                        <th>
-                          Name
-                        </th>
-                        <th>
-                          Country
-                        </th>
-                        <th>
-                          City
-                        </th>
-                        <th class="text-right">
-                          Salary
-                        </th>
+          <a href="{{  route('company.create') }}" class="float-right"><button type="button" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button></a>
+                <table class="table table-bordered" id="company-table">
+                      <thead class="table-bordered">
+                        <th class="th" >Name</th>
+                        <th class="th">Address</th>
+                        <th class="th">Contact No.</th>
+                        <th class="th">Email</th>
+                        <th class="th">Description</th>
+                        <th class="th" data-orderable="false">Action</th>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            Dakota Rice
-                          </td>
-                          <td>
-                            Niger
-                          </td>
-                          <td>
-                            Oud-Turnhout
-                          </td>
-                          <td class="text-right">
-                            $36,738
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Minerva Hooper
-                          </td>
-                          <td>
-                            Curaçao
-                          </td>
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-right">
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                          <td>
-                            Baileux
-                          </td>
-                          <td class="text-right">
-                            $56,142
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          <td>
-                            Korea, South
-                          </td>
-                          <td>
-                            Overland Park
-                          </td>
-                          <td class="text-right">
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Doris Greene
-                          </td>
-                          <td>
-                            Malawi
-                          </td>
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td class="text-right">
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Mason Porter
-                          </td>
-                          <td>
-                            Chile
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td class="text-right">
-                            $78,615
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Jon Porter
-                          </td>
-                          <td>
-                            Portugal
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td class="text-right">
-                            $98,615
-                          </td>
-                        </tr>
-                      </tbody>
                     </table>
-                  </div>
+          </div>
           </div>
       </div>
     </div>
   </div>
 </div>
+@endsection
+
+@section("scripts")
+
+{{$dataTable->scripts()}}
+<script src="{{asset('/js/globalFunctions.js')}}"></script>
+
 @endsection

@@ -35,6 +35,11 @@
   <link href=" {{asset('/css/now-ui-dashboard.css?v=1.5.0')}}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{asset('/css/demo.css')}}" rel="stylesheet" />
+
+  <style>
+    html, body {margin: 0; height: 100%; overflow: hidden !important}
+
+  </style>
 </head>
 <body class="">
   <div class="wrapper ">
@@ -43,11 +48,11 @@
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
       <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-          CT
+        <a href="#" class="simple-text logo-mini">
+          FS
         </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+        <a href="#" class="simple-text logo-normal">
+          Tracking
         </a>
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
@@ -94,12 +99,12 @@
               <p>Settings</p>
             </a>
           </li>
-          <li class="active-pro">
+          <!-- <li class="active-pro">
             <a href="./upgrade.html">
               <i class="now-ui-icons arrows-1_cloud-download-93"></i>
               <p>Upgrade to PRO</p>
             </a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>

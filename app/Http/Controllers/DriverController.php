@@ -34,7 +34,7 @@ class DriverController extends Controller
              <div class="col icons-option" >
              <a href="' . route("driver.show", $datarow->id) . '"><i class="fa-solid fa-eye"></i></a>
              <a href="' . route("driver.edit", $datarow->id) . '"><i class="fas fa-edit"></i></a>
-             <a href="#" onclick="deleteDriver('. $datarow->id .')"><i class="fa-solid fa-trash-can"></i></a>
+             <a href="#" onclick="deleteRecord('. $datarow->id .',\''. $datarow->firstname .' ' . $datarow->lastname .'\')"><i class="fa-solid fa-trash-can"></i></a>
              </div>
              </div>
              
@@ -67,7 +67,7 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        
+        ////METHOD PUT
     }
 
     /**
@@ -104,6 +104,7 @@ class DriverController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //METHOD PUT
         return 'Updating Record id: ' . $id;
     }
 

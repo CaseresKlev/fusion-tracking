@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\DataTables\SettingDataTable;
+use App\Models\Setting;
 
 class SettingsController extends Controller
 {
@@ -11,9 +13,9 @@ class SettingsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SettingDataTable $dataTable)
     {
-        return view("settings.index");
+        return $dataTable->render("settings.index");
     }
 
     /**
@@ -77,8 +79,13 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Setting $setting)
     {
-        //
+        $setting->delete();
+        return redirect()->route('dashboard.settings')
+       ->with([ 
+        'confirmationMessage' => $setting->name  . " setting was deleted succesfully.",
+        'alertType' =>'success' 
+        ]);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Datatables\TruckDataTable;
+use App\Models\Truck;
 
 class TruckController extends Controller
 {
@@ -11,9 +13,10 @@ class TruckController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(TruckDataTable $dataTable)
     {
-        return view("truck.index");
+        return $dataTable->render("truck.index");
+       // return view("truck.index");
     }
 
     /**
@@ -43,9 +46,15 @@ class TruckController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Truck $truck)
     {
-        return 'Showing of truck ' . $id;
+        return view("truck.create_update", 
+        [
+            'actionMethod' => "view", 
+            'actionDescription' => "View Record", 
+            'alertType' =>'success', 
+            'record' => $truck 
+        ]);
     }
 
     /**
@@ -54,9 +63,15 @@ class TruckController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Truck $truck)
     {
-        return 'Editing of truck ' . $id;
+        return view("truck.create_update", 
+        [
+            'actionMethod' => "edit", 
+            'actionDescription' => "View Record", 
+            'alertType' =>'success', 
+            'record' => $truck 
+        ]);
     }
 
     /**
@@ -79,6 +94,12 @@ class TruckController extends Controller
      */
     public function destroy($id)
     {
-        return 'Destroying of truck ' . $id;
+        $truck = Truck::find($id);
+        $truck->delete();
+        return redirect()->route('dashboard.truck')
+       ->with([ 
+        'confirmationMessage' => $truck->name . " was deleted succesfully.",
+        'alertType' =>'success' 
+        ]);
     }
 }

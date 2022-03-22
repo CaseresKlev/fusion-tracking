@@ -6,8 +6,8 @@
 
 @section('content')
 <style src="https:// //cdn.datatables.net/plug-ins/1.11.5/sorting/stringMonthYear.js" ></style>
+<!-- <style src="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css"></style> -->
 <style>
-
 #drivers-table .th {
     border-bottom-width: 1px;
     font-size: 1rem !important;
@@ -87,27 +87,25 @@ $(function() {
             //   +'</div>'
             //   +'</div>'}
         ],
-       /* columnDefs: [
+        columnDefs: [
         { "orderable": false, "targets": [7] },
-        ]*/
+        ],
         columnDefs: [
           { type: 'stringMonthYear', targets: 5 }
         ],
-        // dom: 'Bfrtip',
-        // buttons: [
-        //     'copy', 'csv', 'excel', 'pdf', 'print'
-        // ]
+         dom: 'Bfrtip',
+         buttons: [
+             'copy', 'csv', 'excel', 'pdf', 'print'
+         ]
     });
 });
 
-function deleteDriver(id){
-  if(!confirm("Are you sure you want to delete this record? This cannot be undone.")) {
-    return false;
-  }
-  document.getElementById("form-delete-" + id).submit();
-}
+
 
 //alert("Trigger on Driver Script");
 </script>
 <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script src="{{asset('/js/globalFunctions.js')}}"></script>
+<!-- <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script> -->
 @endsection
