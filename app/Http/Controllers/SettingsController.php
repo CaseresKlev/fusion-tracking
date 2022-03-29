@@ -84,7 +84,7 @@ class SettingsController extends Controller
         $setting->save();
         return redirect()->route('dashboard.settings')
         ->with([ 
-         'confirmationMessage' => $setting->app_name . " | " . $setting->app_section . " | " . $setting->app_field . " | " . " was created succesfully.",
+         'confirmationMessage' =>'Setting ' . $setting->app_name . " | " . $setting->app_section . " | " . $setting->app_field . " | " . " was created succesfully.",
          'alertType' =>'success' 
          ]);
     }
@@ -137,7 +137,7 @@ class SettingsController extends Controller
         $setting->save();
         return redirect()->route('dashboard.settings')
         ->with([ 
-         'confirmationMessage' => $setting->app_name . " | " . $setting->app_section . " | " . $setting->app_field . " | " . " was updated succesfully.",
+         'confirmationMessage' =>'Setting ' .  $setting->app_name . " | " . $setting->app_section . " | " . $setting->app_field . " | " . " was updated succesfully.",
          'alertType' =>'success' 
          ]);
     }
@@ -153,7 +153,7 @@ class SettingsController extends Controller
         $setting->delete();
         return redirect()->route('dashboard.settings')
        ->with([ 
-        'confirmationMessage' => $setting->name  . " setting was deleted succesfully.",
+        'confirmationMessage' => $setting->app_name . " | " . $setting->app_section . " | " . $setting->app_field   . " setting was deleted succesfully.",
         'alertType' =>'success' 
         ]);
     }
