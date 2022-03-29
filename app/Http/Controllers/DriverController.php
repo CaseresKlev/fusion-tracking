@@ -19,7 +19,7 @@ class DriverController extends Controller
         return view("driver.index");
     }
 
-    function getData(Request $request){
+    public function getData(Request $request){
 
         $data = Driver::query();
         //print_r($data);

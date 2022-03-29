@@ -85,8 +85,9 @@ class SettingDataTable extends DataTable
             'app_section',
             'app_field',
             'app_value_1',
-            'app_vaue_2',
+            'app_value_2',
             'app_value_3',
+            'app_setting_description',
             Column::make('action'),
         ];
     }

@@ -62,15 +62,15 @@ class CompanyDataTable extends DataTable
                     ->setTableId('company-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    //->dom('Bfrtip')
+                    ->parameters([
+                        'dom' => 'Blfrtip',
+                        'buttons' => ['csv', 'excel', 'pdf', 'print', 'reset', 'reload'],
+                        'responsive'=> true,
+                        'columnDefs' => array(
+                            ['responsivePriority' => 1, 'targets'=> 0]
+                            )
+                    ])
                     ->orderBy(1);
-                   /* ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );*/
     }
 
     /**

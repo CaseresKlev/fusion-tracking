@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
        \App\Models\User::factory(10)->create();
        \App\Models\Company::factory(30)->create();
        \App\Models\Truck::factory(50)->create();
+       
+       //php atisan db:seed
     }
 }

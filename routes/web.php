@@ -10,8 +10,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\Sample;
-
-
+use App\Models\Setting;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -32,4 +32,5 @@ Route::get('/dashboard/company', [CompanyController::class, 'index'])->name('das
 Route::get('/dashboard/report', [ReportController::class, 'index'])->name('dashboard.report');
 
 Route::resource('/dashboard/settings', SettingsController::class);
+Route::get('/Dashboard/settings/api/ajaxGetData', [SettingsController::class, 'ajaxGetData'])->name('settings.ajaxGetData');
 Route::get('/dashboard/settings', [SettingsController::class, 'index'])->name('dashboard.settings');

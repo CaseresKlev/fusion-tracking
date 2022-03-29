@@ -5,8 +5,6 @@ namespace App\DataTables;
 use App\Models\Truck;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class TruckDataTable extends DataTable
@@ -62,15 +60,9 @@ class TruckDataTable extends DataTable
                     ->setTableId('truck-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+                    ->dom('Blfrtip')
+                    ->orderBy(1);
+                    
     }
 
     /**
@@ -94,6 +86,7 @@ class TruckDataTable extends DataTable
             'brand',
             'model',
             'plate_no',
+            'company_id',
             'owner',
             'status',
             'description',

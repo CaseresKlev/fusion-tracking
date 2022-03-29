@@ -15,13 +15,13 @@ class CreateDriversTable extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
-            $table->string('firstname');
-            $table->string('middlename');
-            $table->string('lastname');
-            $table->string('address');
-            $table->string('contact_no');
-            $table->string('position');
-            $table->string('trip_status');
+            $table->string('firstname', 50)->required();
+            $table->string('middlename', 50)->nullable();
+            $table->string('lastname', 50)->required();
+            $table->string('address', 255)->nullable();
+            $table->string('contact_no', 25)->nullable();;
+            $table->string('position', 30)->nullable();
+            $table->string('trip_status', 30)->nullable();;
             $table->timestamps();
         });
     }

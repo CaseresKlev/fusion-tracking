@@ -43,6 +43,7 @@
                 <th class="th">Brand</th>
                 <th class="th">Model</th>
                 <th class="th">Plate No.</th>
+                <th class="th">Company ID</th>
                 <th class="th">Ownwer</th>
                 <th class="th">Status</th>
                 <th class="th">Description</th>
@@ -62,7 +63,7 @@
 @endsection
 
 @section('scripts')
-  {{ $dataTable->scripts() }}
+{{ $dataTable->scripts() }}
   <script src="{{asset('/js/globalFunctions.js')}}"></script>
 @endsection
 

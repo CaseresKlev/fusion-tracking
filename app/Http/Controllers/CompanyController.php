@@ -120,7 +120,7 @@ class CompanyController extends Controller
         return view("company.create_update", 
         [   'confirmationMessage' => $company->name . " was updated succesfully.",
             'alertType' =>'success',
-            'actionMethod' => "edit", 
+            'actionMethod' => "view", 
             'actionDescription' => "Edit Record", 
             'record' => $company ]);
     }

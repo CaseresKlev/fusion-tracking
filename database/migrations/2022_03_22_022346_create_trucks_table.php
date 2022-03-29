@@ -15,13 +15,15 @@ class CreateTrucksTable extends Migration
     {
         Schema::create('trucks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('brand');
-            $table->string('model');
-            $table->string('plate_no');
-            $table->string('owner');
-            $table->string('status');
-            $table->string('description');
+            $table->string('name', 50)->required();
+            $table->string('brand', 50)->nullable();
+            $table->string('model', 50)->nullable();
+            $table->string('plate_no', 25)->nullable();
+            $table->string('owner', 50)->nullable();
+            $table->string('status', 50)->nullable();
+
+            $table->string('description', 255)->nullable();
+            $table->string('company_id')->integer()->required()->default('1');
             $table->timestamps();
         });
     }
