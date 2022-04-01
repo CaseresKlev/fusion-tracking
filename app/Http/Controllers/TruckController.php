@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Datatables\TruckDataTable;
 use App\Models\Truck;
+use App\Models\Setting;
+use App\Http\Controllers\SettingsController;
+use App\Http\Requests\TruckFormRequest;
+use Illuminate\Support\Facades\Log;
 
 class TruckController extends Controller
 {
@@ -26,7 +30,21 @@ class TruckController extends Controller
      */
     public function create()
     {
-        return 'Creating of truck ';
+
+         $settingController = new SettingsController();
+         $status = $settingController->getSetting('APP', 'TRUCK', 'STATUS');
+ 
+         $companyController = new CompanyController();
+         $company =  $companyController->getAllCompany();
+        //Log::info(json_encode($status)); 
+        return view("truck.create_update", 
+        [
+            'actionMethod' => "create", 
+            'actionDescription' => "Create Record", 
+            'alertType' =>'success', 
+            'status' => $status,
+            'companyList' => $company 
+        ]);
     }
 
     /**
@@ -35,9 +53,25 @@ class TruckController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TruckFormRequest $request)
     {
-        return 'Storing of truck ';
+        $data = $request->validated();
+        $truck = new Truck();
+        $truck->name = $data['name'];
+        $truck->brand = $data['brand'];
+        $truck->model = $data['model'];
+        $truck->plate_no = $data['plate_no'];
+        $truck->company_id = $data['company_id'];
+        $truck->owner = $data['owner'];
+        $truck->status = $data['status'];
+        $truck->description = $data['description'];
+
+        $truck->save();
+        return redirect()->route('dashboard.truck')
+        ->with([ 
+         'confirmationMessage' =>'Truck ' . $truck->name . " | Plate Number: " . $truck->plate_no . " was created succesfully.",
+         'alertType' =>'success' 
+         ]);
     }
 
     /**
@@ -48,12 +82,19 @@ class TruckController extends Controller
      */
     public function show(Truck $truck)
     {
+        $settingController = new SettingsController();
+        $status = $settingController->getSetting('APP', 'TRUCK', 'STATUS');
+
+        $companyController = new CompanyController();
+        $company =  $companyController->getAllCompany();
         return view("truck.create_update", 
         [
             'actionMethod' => "view", 
             'actionDescription' => "View Record", 
             'alertType' =>'success', 
-            'record' => $truck 
+            'record' => $truck,
+            'status' => $status,
+            'companyList' => $company 
         ]);
     }
 
@@ -65,12 +106,19 @@ class TruckController extends Controller
      */
     public function edit(Truck $truck)
     {
+        $settingController = new SettingsController();
+        $status = $settingController->getSetting('APP', 'TRUCK', 'STATUS');
+
+        $companyController = new CompanyController();
+        $company =  $companyController->getAllCompany();
         return view("truck.create_update", 
         [
             'actionMethod' => "edit", 
-            'actionDescription' => "View Record", 
+            'actionDescription' => "Edit Record", 
             'alertType' =>'success', 
-            'record' => $truck 
+            'record' => $truck,
+            'status' => $status,
+            'companyList' => $company 
         ]);
     }
 
@@ -81,9 +129,24 @@ class TruckController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TruckFormRequest $request, Truck $truck)
     {
-        return 'Updating of truck ' . $id;
+        $data = $request->validated();
+        $truck->name = $data['name'];
+        $truck->brand = $data['brand'];
+        $truck->model = $data['model'];
+        $truck->plate_no = $data['plate_no'];
+        $truck->company_id = $data['company_id'];
+        $truck->owner = $data['owner'];
+        $truck->status = $data['status'];
+        $truck->description = $data['description'];
+
+        $truck->save();
+        return redirect()->route('dashboard.truck')
+        ->with([ 
+         'confirmationMessage' =>'Truck ' . $truck->name . " | Plate Number: " . $truck->plate_no . " was updated succesfully.",
+         'alertType' =>'success' 
+         ]);
     }
 
     /**

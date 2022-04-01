@@ -157,4 +157,13 @@ class SettingsController extends Controller
         'alertType' =>'success' 
         ]);
     }
+
+    public function getSetting($app_name, $app_section, $app_field){
+        $data = Setting::select('id', 'APP_VALUE_1', 'APP_VALUE_2', 'APP_VALUE_3')
+        ->where('APP_NAME', '=', $app_name)
+        ->where('APP_SECTION', '=', $app_section)
+        ->where('APP_FIELD', '=', $app_field)
+        ->get();
+        return $data;
+    }
 }

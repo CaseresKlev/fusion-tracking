@@ -42,108 +42,226 @@ Truck -> {{$actionDescription}}
         @if($actionMethod == 'view')         
             <form>
                 <input type="hidden" value="{{$record->id}}"/>
-                <div class="form-group ">
-                    <label for="formGroupExampleInput" class="control-label">Truck name:</label>
-                    <input type="text" class="form-control form-control-lg" id="name" name="name" value="{{ $record->name }}" placeholder="Truck name" readonly>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group ">
+                            <label for="formGroupExampleInput" class="control-label">Truck name:</label>
+                            <input type="text" class="form-control form-control-lg" id="name" name="name" value="{{ $record->name }}" placeholder="Truck name" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2" >Truck brand:</label>
+                            <input type="text" class="form-control form-control-lg" id="brand" name="brand" value="{{ $record->brand }}" placeholder="Truck brand" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck model:</label>
+                            <input type="text" class="form-control form-control-lg" id="model" name="model" value="{{ $record->model }}" placeholder="Truck model" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck plate no.:</label>
+                            <input type="text" class="form-control form-control-lg" id="plate_no" name="plate_no" value="{{ $record->plate_no }}" placeholder="truck Plate number" readonly>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2" >Truck brand:</label>
-                    <input type="text" class="form-control form-control-lg" id="brand" name="brand" value="{{ $record->brand }}" placeholder="Truck brand" readonly>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck owner:</label>
+                            <input type="text" class="form-control form-control-lg" id="owner" name="owner" value="{{ $record->owner }}" placeholder="Truck owner" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck status:</label>
+                            <!-- <input type="text" class="form-control form-control-lg" id="status" name="status" value="{{ $record->status }}" placeholder="Truck status" readonly> -->
+                            <select class="form-control form-control-lg" aria-label="Default select example" id="status" name="status" readonly disabled="disabled">
+                                <option value="{{$record->status}}">{{$record->status}}</option>
+                            </select>
+                        </div>    
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck description:</label>
+                            <input type="text" class="form-control form-control-lg" id="description" name="description" value="{{ $record->description }}" placeholder="Truck description" readonly>
+                        </div>    
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck Company:</label>
+                            <!-- <input type="text" class="form-control form-control-lg" id="company_id" name="company_id" value="{{ $record->company_id }}" placeholder="Truck description" readonly> -->
+                            <select class="form-control form-control-lg" aria-label="Default select example" id="company_id" name="company_id" readonly disabled="disabled">
+                                @foreach($companyList as $company)
+                                    <option  
+                                        @if($company->id == $record->company_id)
+                                        selected
+                                        @endif
+
+                                        value="{{ $company->id }}">{{ $company->name }}</option>
+
+                                @endforeach
+                            </select>
+                        </div>     
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Truck model:</label>
-                    <input type="text" class="form-control form-control-lg" id="model" name="model" value="{{ $record->model }}" placeholder="Truck model" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">truck plate no.:</label>
-                    <input type="text" class="form-control form-control-lg" id="plate_no" name="plate_no" value="{{ $record->plate_no }}" placeholder="truck Plate number" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Truck owner:</label>
-                    <input type="text" class="form-control form-control-lg" id="owner" name="owner" value="{{ $record->owner }}" placeholder="Truck owner" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Truck status:</label>
-                    <input type="text" class="form-control form-control-lg" id="status" name="status" value="{{ $record->status }}" placeholder="Truck status" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Truck description:</label>
-                    <input type="text" class="form-control form-control-lg" id="description" name="description" value="{{ $record->description }}" placeholder="Truck description" readonly>
-                </div>
+                
             </form>
 
         @elseif($actionMethod == 'edit') 
         <form method="POST" action="{{route('truck.update', $record->id)}}">
             @csrf
             @method('PUT')
-                <input type="hidden" value="{{$record->id}}"/>
-                <div class="form-group ">
-                    <label for="formGroupExampleInput" class="control-label">Truck name:</label>
-                    <input type="text" class="form-control form-control-lg" id="name" name="name" value="{{ $record->name }}" placeholder="Truck name" required>
+                <input type="hidden" name="id" value="{{$record->id}}"/>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group ">
+                            <label for="formGroupExampleInput" class="control-label">Truck name:</label>
+                            <input type="text" class="form-control form-control-lg" id="name" name="name" value="{{ $record->name }}" placeholder="Truck name" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2" >Truck brand:</label>
+                            <input type="text" class="form-control form-control-lg" id="brand" name="brand" value="{{ $record->brand }}" placeholder="Truck brand" >
+                        </div>   
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck model:</label>
+                            <input type="text" class="form-control form-control-lg" id="model" name="model" value="{{ $record->model }}" placeholder="Truck model" >
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck plate no.:</label>
+                            <input type="text" class="form-control form-control-lg" id="plate_no" name="plate_no" value="{{ $record->plate_no }}" placeholder="truck Plate number" required>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2" >Truck brand:</label>
-                    <input type="text" class="form-control form-control-lg" id="brand" name="brand" value="{{ $record->brand }}" placeholder="Truck brand" >
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Truck model:</label>
-                    <input type="text" class="form-control form-control-lg" id="model" name="model" value="{{ $record->model }}" placeholder="Truck model" >
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">truck plate no.:</label>
-                    <input type="text" class="form-control form-control-lg" id="plate_no" name="plate_no" value="{{ $record->plate_no }}" placeholder="truck Plate number" required>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Truck owner:</label>
-                    <input type="text" class="form-control form-control-lg" id="owner" name="owner" value="{{ $record->owner }}" placeholder="Truck owner" >
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Truck status:</label>
-                    <select class="form-select" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Truck description:</label>
-                    <input type="text" class="form-control form-control-lg" id="description" name="description" value="{{ $record->description }}" placeholder="Truck description" >
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck owner:</label>
+                            <input type="text" class="form-control form-control-lg" id="owner" name="owner" value="{{ $record->owner }}" placeholder="Truck owner" >
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck status:</label>
+                            <select class="form-control form-control-lg" aria-label="Default select example" id="status" name="status">
+                            <option value=""></option>
+                                @foreach($status as $stat)
+                                    <option  
+                                        @if($stat->APP_VALUE_1 == $record->status)
+                                        selected
+                                        @endif
+                                        value="{{ $stat->APP_VALUE_1 }}">{{ $stat->APP_VALUE_1 }}</option>
+
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck description:</label>
+                            <input type="text" class="form-control form-control-lg" id="description" name="description" value="{{ $record->description }}" placeholder="Truck description" >
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Company:</label>
+                            <select class="form-control form-control-lg" aria-label="Default select example" id="company_id" name="company_id" required>
+                                <option selected></option>
+                                @foreach($companyList as $company)
+                                    <option  
+                                        @if($company->id == $record->company_id)
+                                        selected
+                                        @endif
+
+                                        value="{{ $company->id }}">{{ $company->name }}</option>
+
+                                @endforeach
+                    
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
         @elseif($actionMethod == 'create')   
-        <form method="POST" action="{{route('company.store')}}">
+        <form method="POST" action="{{route('truck.store')}}">
             @csrf
-                <div class="form-group ">
-                    <label for="formGroupExampleInput" class="txt-md">Company name:<span class="text-danger control-label">&nbsp;*</span></label>
-                    @error('name')
-                        <span class="bg-danger txt-md text-white">{{$message}}</span>
-                    @enderror
-                    <input type="text" class="form-control form-control-lg" id="name" name="name" value="{{ old('name') }}" placeholder="Company name" required>
-                    
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group ">
+                            <label for="formGroupExampleInput" class="control-label">Truck name:</label>
+                            <input type="text" class="form-control form-control-lg" id="name" name="name" value="{{old('name')}}" placeholder="Truck name" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2" >Truck brand:</label>
+                            <input type="text" class="form-control form-control-lg" id="brand" name="brand" value="{{old('brand')}}" placeholder="Truck brand" >
+                        </div>   
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck model:</label>
+                            <input type="text" class="form-control form-control-lg" id="model" name="model" value="{{old('model')}}" placeholder="Truck model" >
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck plate no.:</label>
+                            @error('app_name')
+                                <span class="bg-danger txt-md text-white">{{$message}}</span>
+                            @enderror
+                            <input type="text" class="form-control form-control-lg" id="plate_no" name="plate_no" value="{{old('plate_no')}}" placeholder="truck Plate number" required>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Company address:</label>
-                    <input type="text" class="form-control form-control-lg" id="address" name="address" value="{{ old('address') }}" placeholder="Company address">
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Company contact no.:</label>
-                    @error('contact_no')
-                        <span class="bg-danger txt-md text-white">{{$message}}</span>
-                    @enderror
-                    <input type="text" class="form-control form-control-lg" id="contact_no" name="contact_no" value="{{ old('contact_no') }}" placeholder="Company contact number" >
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Company email:</label>
-                    @error('email')
-                        <span class="bg-danger txt-md text-white">{{$message}}</span>
-                    @enderror
-                    <input type="email" class="form-control form-control-lg" id="email" name="email" value="{{ old('email') }}" placeholder="user@exaple.com"  >
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Company description:</label>
-                    <input type="text" class="form-control form-control-lg" id="description" name="description" value="{{ old('description')}}" placeholder="Company email" >
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck owner:</label>
+                            <input type="text" class="form-control form-control-lg" id="owner" name="owner" value="{{old('owner')}}" placeholder="Truck owner" >
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck status:</label>
+                            <select class="form-control form-control-lg" aria-label="Default select example" id="status" name="status">
+                            <option value=""></option>
+                                @foreach($status as $stat)
+                                    <option value="{{ $stat->APP_VALUE_1 }}">{{ $stat->APP_VALUE_1 }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Truck description:</label>
+                            <input type="text" class="form-control form-control-lg" id="description" name="description" value="{{old('description')}}" placeholder="Truck description" >
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Company:</label>
+                            @error('app_name')
+                                <span class="bg-danger txt-md text-white">{{$message}}</span>
+                            @enderror
+                            <select class="form-control form-control-lg" aria-label="Default select example" id="company_id" name="company_id" required>
+                            @foreach($companyList as $company)
+                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>

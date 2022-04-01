@@ -40,13 +40,6 @@ class CreateSettingsTable extends Migration
                 'app_name' => 'APP',
                 'app_section' => 'TRUCK',
                 'app_field' => 'STATUS',
-                'app_value_1' => '',
-                'app_setting_description' => 'This settings was used by the TRUCK MODULE for the truck status'
-            ],
-            [
-                'app_name' => 'APP',
-                'app_section' => 'TRUCK',
-                'app_field' => 'STATUS',
                 'app_value_1' => 'ON-SERVICE',
                 'app_setting_description' => 'This settings was used by the TRUCK MODULE for the truck status'
             ],
@@ -59,10 +52,10 @@ class CreateSettingsTable extends Migration
             ],
             [
                 'app_name' => 'APP',
-                'app_section' => 'DRIVER',
+                'app_section' => 'TRUCK',
                 'app_field' => 'STATUS',
-                'app_value_1' => '',
-                'app_setting_description' => 'This settings was used by the DRIVER MODULE for the driver status'
+                'app_value_1' => 'ON MAINTENANCE',
+                'app_setting_description' => 'This settings was used by the TRUCK MODULE for the truck status'
             ],
             [
                 'app_name' => 'APP',

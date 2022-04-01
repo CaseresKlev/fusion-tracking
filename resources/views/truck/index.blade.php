@@ -36,6 +36,7 @@
           <p class="category">These module is for truck functions. You can add, edit and truck trips here.</p>
         </div>
         <div class="card-body">
+        <a href="{{  route('truck.create') }}" class="float-right"><button type="button" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button></a>
           <div class="table-responsive">
             <table class="table table-bordered" id="truck-table">
               <thead class="table-bordered">

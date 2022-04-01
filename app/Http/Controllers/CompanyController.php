@@ -144,4 +144,9 @@ class CompanyController extends Controller
         'alertType' =>'success' 
         ]);
     }
+
+    public function getAllCompany(){
+        $data = Company::select('id', 'name')->get();
+        return $data;
+    }
 }
