@@ -1,0 +1,9 @@
+.group label {
+    font-weight: bold !important;
+    color: crimson !important;
+}
+
+.control-label {
+    font-weight: bold !important;
+    color: crimson !important;
+}

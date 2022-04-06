@@ -21,7 +21,7 @@ class CreateDriversTable extends Migration
             $table->string('address', 255)->nullable();
             $table->string('contact_no', 25)->nullable();;
             $table->string('position', 30)->nullable();
-            $table->string('trip_status', 30)->nullable();;
+            $table->string('trip_status', 30)->nullable();
             $table->timestamps();
         });
     }

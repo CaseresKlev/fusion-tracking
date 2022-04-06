@@ -100,6 +100,6 @@ $( document ).ready(function() {
 
 
 </script>
-<script src="{{asset('/js/globalFunctions.js')}}"></script>
+
 
 @endsection

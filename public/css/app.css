@@ -36,3 +36,13 @@ input
     color: #333;
     text-decoration: none;
 }
+
+.group label {
+    font-weight: bold !important;
+    color: crimson !important;
+}
+
+label {
+    font-weight: bold !important;
+    color: crimson !important;
+}

@@ -165,6 +165,7 @@ return [
         //CUSTOME SERVICES
         Yajra\Datatables\DatatablesServiceProvider::class,
         Yajra\Datatables\ButtonsServiceProvider::class,
+        
 
         /*
          * Package Service Providers...
@@ -236,6 +237,7 @@ return [
 
         //CUSTOM PAKAGES
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        
 
     ],
 

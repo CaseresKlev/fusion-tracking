@@ -165,4 +165,9 @@ class TruckController extends Controller
         'alertType' =>'success' 
         ]);
     }
+
+    public function getAllTruck(){
+        $data = Truck::select('id', 'name', 'plate_no')->get();
+        return $data;
+    }
 }

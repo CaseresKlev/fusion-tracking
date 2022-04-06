@@ -38,6 +38,14 @@ class CreateSettingsTable extends Migration
             ],
             [
                 'app_name' => 'APP',
+                'app_section' => 'TAX',
+                'app_field' => 'RATE',
+                'app_value_1' => '0.12',
+                'added_by' => 'USER',
+                'app_setting_description' => 'Used for Tax Deduction 12%'
+            ],
+            [
+                'app_name' => 'APP',
                 'app_section' => 'TRUCK',
                 'app_field' => 'STATUS',
                 'app_value_1' => 'ON-SERVICE',
@@ -56,6 +64,13 @@ class CreateSettingsTable extends Migration
                 'app_field' => 'STATUS',
                 'app_value_1' => 'ON MAINTENANCE',
                 'app_setting_description' => 'This settings was used by the TRUCK MODULE for the truck status'
+            ],
+            [
+                'app_name' => 'APP',
+                'app_section' => 'DRIVER',
+                'app_field' => 'STATUS',
+                'app_value_1' => 'ON A TRIP',
+                'app_setting_description' => 'This settings was used by the DRIVER MODULE for the driver status'
             ],
             [
                 'app_name' => 'APP',

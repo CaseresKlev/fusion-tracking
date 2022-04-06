@@ -37,6 +37,7 @@
           <p class="category">These module is for Driver functions. You can add, edit and delete driver here.</p>
         </div>
         <div class="card-body">
+        <a href="{{  route('driver.create') }}" class="float-right"><button type="button" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button></a>
           <div class="table-responsive">
                     <table class="table table-bordered" id="drivers-table">
                       <thead class="table-bordered">
@@ -45,7 +46,7 @@
                         <th class="th">Lastname</th>
                         <th class="th">Position</th>
                         <th class="th">Trip Status</th>
-                        <th class="th">Updated at</th>
+                        <!-- <th class="th">Updated at</th> -->
                         <th class="th" data-orderable="false">Action</th>
                       </thead>
                     </table>
@@ -71,7 +72,7 @@ $(function() {
             { data: 'lastname', name: 'lastname' },
             { data: 'position', name: 'position' },
             { data: 'trip_status', name: 'trip_status' },
-            { data: 'updated_at', name: 'updated_at' },
+            // { data: 'updated_at', name: 'updated_at' },
             { 
               data: 'action', 
               name: "action", 

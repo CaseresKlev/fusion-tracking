@@ -15,7 +15,13 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+Route::get('/dashboard/trip/api/ajaxGetData', [TripController::class, 'ajaxGetData'])->name('trip.ajaxGetData');
+Route::get('/dashboard/trip/ticket-id/{trip_ticket_id?}', [TripController::class, 'showTripTicketDetails'])->name('trip.ticket_id');
+Route::resource('/dashboard/trip', TripController::class);
 Route::get('/dashboard/trip', [TripController::class, 'index'])->name('dashboard.trip');
+Route::get('/dashboard/trip/{startDate?}/{endDate?}', [TripController::class, 'getTripBydateRange'])->name('dashboard.trip.by.date.range');
+
 Route::resource('dashboard/sample', Sample::class);
 
 Route::resource('dashboard/driver', DriverController::class);

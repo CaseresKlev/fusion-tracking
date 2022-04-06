@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DriverFormRequest;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\Driver;
@@ -56,7 +57,18 @@ class DriverController extends Controller
      */
     public function create()
     {
-        return 'Creating User';
+        $settingController = new SettingsController();
+        $status = $settingController->getSetting('APP', 'DRIVER', 'STATUS');
+
+        $position = $settingController->getSetting('APP', 'DRIVER', 'POSITION');
+        return view("driver.create_update", 
+        [
+            'actionMethod' => "create", 
+            'actionDescription' => "Create Record", 
+            'alertType' =>'success', 
+            'status' => $status,
+            'position' => $position
+        ]);
     }
 
     /**
@@ -65,9 +77,26 @@ class DriverController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DriverFormRequest $request, Driver $driver)
     {
+        
         ////METHOD PUT
+        $data = $request->validated();
+        $driver = new Driver();
+        $driver->firstname = $data['firstname'];
+        $driver->middlename = $data['middlename'];
+        $driver->lastname = $data['lastname'];
+        $driver->address = $data['address'];
+        $driver->contact_no = $data['contact_no'];
+        $driver->position = $data['position'];
+        $driver->trip_status = $data['trip_status'];
+
+        $driver->save();
+        return redirect()->route('dashboard.driver')
+        ->with([ 
+         'confirmationMessage' =>'Driver ' . $driver->firstname . " " . $driver->lastname . " was created succesfully.",
+         'alertType' =>'success' 
+         ]);
     }
 
     /**
@@ -76,12 +105,25 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Driver $driver)
     {
-        // return view('user.profile', [
-        //     'driver' => Driver::findOrFail($id)
-        // ]);
-        return 'Showing Record id: ' . $id;
+
+        $settingController = new SettingsController();
+        $status = $settingController->getSetting('APP', 'DRIVER', 'STATUS');
+
+        $position = $settingController->getSetting('APP', 'DRIVER', 'POSITION');
+
+        //$companyController = new CompanyController();
+        //$company =  $companyController->getAllCompany();
+        return view("driver.create_update", 
+        [
+            'actionMethod' => "view", 
+            'actionDescription' => "View Record", 
+            'alertType' =>'success', 
+            'record' => $driver,
+            'status' => $status,
+            'position' => $position
+        ]);
     }
 
     /**
@@ -90,9 +132,24 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Driver $driver)
     {
-        return 'Editing Record id: ' . $id;
+        $settingController = new SettingsController();
+        $status = $settingController->getSetting('APP', 'DRIVER', 'STATUS');
+
+        $position = $settingController->getSetting('APP', 'DRIVER', 'POSITION');
+
+        //$companyController = new CompanyController();
+        //$company =  $companyController->getAllCompany();
+        return view("driver.create_update", 
+        [
+            'actionMethod' => "edit", 
+            'actionDescription' => "Edit Record", 
+            'alertType' =>'success', 
+            'record' => $driver,
+            'status' => $status,
+            'position' => $position
+        ]);
     }
 
     /**
@@ -102,10 +159,24 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DriverFormRequest $request, Driver $driver)
     {
-        //METHOD PUT
-        return 'Updating Record id: ' . $id;
+        ////METHOD PUT
+        $data = $request->validated();
+        $driver->firstname = $data['firstname'];
+        $driver->middlename = $data['middlename'];
+        $driver->lastname = $data['lastname'];
+        $driver->address = $data['address'];
+        $driver->contact_no = $data['contact_no'];
+        $driver->position = $data['position'];
+        $driver->trip_status = $data['trip_status'];
+
+        $driver->save();
+        return redirect()->route('dashboard.driver')
+        ->with([ 
+         'confirmationMessage' =>'Driver ' . $driver->firstname . " " . $driver->lastname . " was updated succesfully.",
+         'alertType' =>'success' 
+         ]);
     }
 
     /**
@@ -124,5 +195,10 @@ class DriverController extends Controller
         'confirmationMessage' => $driver->firstname . ' ' . $driver->middlename . " " . $driver->lastname . " was deleted succesfully.",
         'alertType' =>'success' 
         ]);
+    }
+
+    public function getAllDriver(){
+        $data = Driver::select('id', 'firstname', 'lastname')->get();
+        return $data;
     }
 }
