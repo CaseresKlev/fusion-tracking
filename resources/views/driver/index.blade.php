@@ -41,13 +41,13 @@
           <div class="table-responsive">
                     <table class="table table-bordered" id="drivers-table">
                       <thead class="table-bordered">
-                        <th class="th" >Firstname</th>
-                        <th class="th">Middlename</th>
-                        <th class="th">Lastname</th>
+                        <th class="th" data-priority="1">Firstname</th>
+                        <th class="th" data-priority="2">Middlename</th>
+                        <th class="th" data-priority="3">Lastname</th>
                         <th class="th">Position</th>
                         <th class="th">Trip Status</th>
                         <!-- <th class="th">Updated at</th> -->
-                        <th class="th" data-orderable="false">Action</th>
+                        <th class="th" data-orderable="false" data-priority="4">Action</th>
                       </thead>
                     </table>
               </div>
@@ -62,14 +62,20 @@
 <script>
 
 $(function() {
-    $('#drivers-table').DataTable({
+    $('#drivers-table').dataTable({
         processing: true,
         serverSide: true,
         ajax: '{{ route("dashboard.driver.api.getdata") }}',
+        "columnDefs": [
+		            { responsivePriority: 1, targets: 0 },
+		            { responsivePriority: 2, targets: 1 },
+                { responsivePriority: 3, targets: 2 },
+		            { responsivePriority: 4, targets: 5 },
+		        ],
         columns: [
-            { data: 'firstname', name: 'firstname' },
-            { data: 'middlename', name: 'middlename' },
-            { data: 'lastname', name: 'lastname' },
+            { data: 'firstname', name: 'firstname', responsivePriority: 1, targets: 0 },
+            { data: 'middlename', name: 'middlename', responsivePriority: 2, targets: 1 },
+            { data: 'lastname', name: 'lastname', responsivePriority: 3, targets: 2 },
             { data: 'position', name: 'position' },
             { data: 'trip_status', name: 'trip_status' },
             // { data: 'updated_at', name: 'updated_at' },
@@ -77,7 +83,8 @@ $(function() {
               data: 'action', 
               name: "action", 
               orderable: false, 
-              searchable: false
+              searchable: false,
+              responsivePriority: 4, targets: 5
             }
             // {"defaultContent": 
             //   '<div class="row">'
@@ -98,6 +105,7 @@ $(function() {
          buttons: [
              'copy', 'csv', 'excel', 'pdf', 'print'
          ]
+         
     });
 });
 

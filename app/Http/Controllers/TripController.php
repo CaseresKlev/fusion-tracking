@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TripFormRequest;
 use App\Models\Driver;
+use App\Models\Expense;
 use Illuminate\Http\Request;
 use App\Models\Trip;
 use Yajra\DataTables\Facades\DataTables;
@@ -92,13 +93,23 @@ class TripController extends Controller
 
         $driverController = new DriverController();
         $driver = $driverController->getAllDriver();
+
+        $companyController = new CompanyController;
+        $company = $companyController->getAllCompany();
+
+        $expense = new Expense();
         return view("trip.create_update", 
         [
             'actionMethod' => "view", 
             'actionDescription' => "View Record", 
             'record' => $trip,
             'truckList' => $truck,
-            'driverList' => $driver
+            'driverList' => $driver,
+            'companyList' => $company,
+            'tripRecord' => $trip,
+            'expenseRecord' => $expense,
+            'modalActionMethod' =>"view",
+            //'modalFormAction' => route('expense')
         ]);
     }
 

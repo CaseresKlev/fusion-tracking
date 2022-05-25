@@ -22,6 +22,11 @@ function generateDateRangeLink(startDate, endDate){
     //$('#startDate').datepicker({ dateFormat: 'yy-mm-dd' }).datepicker('setDate', startDate);
 }
 
+function resetFilterTable(){
+    $('#startDate').val("");
+    $('#endDate').val("");
+  }
+
 
 
 //require('./bootstrap');

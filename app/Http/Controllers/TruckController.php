@@ -8,6 +8,7 @@ use App\Models\Truck;
 use App\Models\Setting;
 use App\Http\Controllers\SettingsController;
 use App\Http\Requests\TruckFormRequest;
+use App\Models\Trip;
 use Illuminate\Support\Facades\Log;
 
 class TruckController extends Controller
@@ -87,6 +88,11 @@ class TruckController extends Controller
 
         $companyController = new CompanyController();
         $company =  $companyController->getAllCompany();
+
+        //added features
+        // $trip = new Trip();
+        // $truckController = new TruckController;
+        // $truck = $truckController->getAllTruck();
         return view("truck.create_update", 
         [
             'actionMethod' => "view", 
@@ -94,7 +100,11 @@ class TruckController extends Controller
             'alertType' =>'success', 
             'record' => $truck,
             'status' => $status,
-            'companyList' => $company 
+            'companyList' => $company,
+
+            // 'tripRecord' => $trip,
+            // 'truckList' => $truck,
+            // 'modalActionMethod' =>"view",
         ]);
     }
 
@@ -167,7 +177,7 @@ class TruckController extends Controller
     }
 
     public function getAllTruck(){
-        $data = Truck::select('id', 'name', 'plate_no')->get();
+        $data = Truck::select('id', 'name', 'plate_no', 'company_id')->get();
         return $data;
     }
 }

@@ -6,12 +6,13 @@ use App\Http\Controllers\TripController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\TruckController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\Sample;
+use App\Models\Expense;
 use App\Models\Setting;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -40,3 +41,6 @@ Route::get('/dashboard/report', [ReportController::class, 'index'])->name('dashb
 Route::resource('/dashboard/settings', SettingsController::class);
 Route::get('/Dashboard/settings/api/ajaxGetData', [SettingsController::class, 'ajaxGetData'])->name('settings.ajaxGetData');
 Route::get('/dashboard/settings', [SettingsController::class, 'index'])->name('dashboard.settings');
+
+Route::resource('/dashboard/expense', ExpenseController::class);
+Route::get('/dashboard/expense/api/getAjaxData/{trip?}/{truck?}/{company?}/{driver?}/', [ExpenseController::class, 'getAjaxData'])->name('expense.getAjaxData');

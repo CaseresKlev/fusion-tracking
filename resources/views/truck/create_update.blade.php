@@ -275,6 +275,8 @@ Truck -> {{$actionDescription}}
     </div>
   </div>
 </div>
+
+<!--  -->
 @endsection
 
 @section("scripts")

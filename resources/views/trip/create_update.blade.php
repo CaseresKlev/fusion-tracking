@@ -69,7 +69,7 @@ Trip -> {{$actionDescription}}
                     <div class="col">
                         <div class="form-group ">
                             <label for="formGroupExampleInput" class="control-label font-weight-bold ">TRIP TICKET ID:</label>
-                            <input type="text" class="form-control form-control-lg" value="">
+                            <input type="text" class="form-control form-control-lg" value="{{$record->trip_ticket_id}}">
                         </div>
                     </div>
                 </div>
@@ -523,6 +523,8 @@ Trip -> {{$actionDescription}}
     </div>
   </div>
 </div>
+
+@include('expense.index') 
 @endsection
 
 @section("scripts")

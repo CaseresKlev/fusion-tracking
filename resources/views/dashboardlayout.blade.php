@@ -24,6 +24,7 @@
   <title>
     @yield('title')
   </title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -31,11 +32,12 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
   <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"></style>
   <!-- CSS Files -->
   <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" />
   <link href=" {{asset('/css/now-ui-dashboard.css?v=1.5.0')}}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="{{asset('/css/demo.css')}}" rel="stylesheet" />
+  <!-- <link href="{{asset('/css/demo.css')}}" rel="stylesheet" /> -->
   
 
   <style>
@@ -225,7 +227,7 @@
   <!--  Notifications Plugin    -->
   <script src="{{asset('/js/plugins/bootstrap-notify.js')}}"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{{asset('/js/now-ui-dashboard.min.js?v=1.5.0')}}" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  <!-- <script src="{{asset('/js/now-ui-dashboard.min.js?v=1.5.0')}}" type="text/javascript"></script>Now Ui Dashboard DEMO methods, don't include it in your project! -->
   <script src="{{asset('/js/demo.js')}}"></script>
   <script src="{{asset('/js/app.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
@@ -238,9 +240,16 @@
   <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
   <script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.js" type="text/javascript"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
   <script src="https://cdn.datatables.net/fixedheader/3.2.2/js/dataTables.fixedHeader.min.js"></script>
+  
+  <!-- Data Table - Responsive -->
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+  
+  <!-- Custom JS Function -->
   <script src="{{asset('/js/globalFunctions.js')}}"></script>
   <script>
     $(document).ready(function() {
@@ -250,6 +259,8 @@
     });
   </script>
   @yield('scripts')
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+
 </body>
 
 </html>
