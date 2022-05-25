@@ -72,12 +72,19 @@ class TripController extends Controller
         
        // print("Driver ID: " . $request['driver_id']);
         $trip->save();
-        
-       return redirect()->route('dashboard.trip')
+        $id = $trip->id;
+
+        return redirect()->route('trip.show', $id)
         ->with([ 
          'confirmationMessage' =>'Trip ID: ' . $trip->id .  " was created succesfully.",
          'alertType' =>'success' 
          ]);
+        
+    //    return redirect()->route('dashboard.trip')
+    //     ->with([ 
+    //      'confirmationMessage' =>'Trip ID: ' . $trip->id .  " was created succesfully.",
+    //      'alertType' =>'success' 
+    //      ]);
     }
 
     /**
