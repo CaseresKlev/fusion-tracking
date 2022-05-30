@@ -8,8 +8,11 @@ use App\Models\Truck;
 use App\Models\Setting;
 use App\Http\Controllers\SettingsController;
 use App\Http\Requests\TruckFormRequest;
+use App\Models\Company;
+use App\Models\Driver;
 use App\Models\Trip;
 use Illuminate\Support\Facades\Log;
+use App\Models\Expense;
 
 class TruckController extends Controller
 {
@@ -90,9 +93,21 @@ class TruckController extends Controller
         $company =  $companyController->getAllCompany();
 
         //added features
-        // $trip = new Trip();
+         $trip = new Trip();
+
+        $truckController = new TruckController;
+        $truckList = $truckController->getAllTruck();
+
+        $driverController = new DriverController();
+        $driver = $driverController->getAllDriver();
         // $truckController = new TruckController;
         // $truck = $truckController->getAllTruck();
+
+        $expense = new Expense();
+        $driverModel = Driver::find($truck->company_id);
+        $companyModel = Company::find($truck->company_id);
+        $modelTruck = Truck::find($trip->truck_id);
+
         return view("truck.create_update", 
         [
             'actionMethod' => "view", 
@@ -101,10 +116,16 @@ class TruckController extends Controller
             'record' => $truck,
             'status' => $status,
             'companyList' => $company,
-
-            // 'tripRecord' => $trip,
-            // 'truckList' => $truck,
-            // 'modalActionMethod' =>"view",
+            'expenseRecord' => $expense,
+            'tripRecord' => $trip,
+            'truckList' => $truckList,
+            'driverList' => $driver,
+            'modalActionMethod' =>"view",
+            "modelTruck" => $truck,
+            "tripModel" => $trip,
+            "driverModel" => $driverModel,
+            "companyModel" => $companyModel,
+            "truckModel" => $modelTruck
         ]);
     }
 

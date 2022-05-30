@@ -7,6 +7,8 @@ use App\Models\Driver;
 use App\Models\Expense;
 use Illuminate\Http\Request;
 use App\Models\Trip;
+use App\Models\Truck;
+use App\Models\Company;
 use Yajra\DataTables\Facades\DataTables;
 
 class TripController extends Controller
@@ -96,7 +98,7 @@ class TripController extends Controller
     public function show(Trip $trip)
     {
         $truckController = new TruckController;
-        $truck = $truckController->getAllTruck();
+        $truckList = $truckController->getAllTruck();
 
         $driverController = new DriverController();
         $driver = $driverController->getAllDriver();
@@ -105,17 +107,28 @@ class TripController extends Controller
         $company = $companyController->getAllCompany();
 
         $expense = new Expense();
+
+        $modelTruck = Truck::find($trip->truck_id);
+        $driverModel = Driver::find($trip->driver_id);
+        $companyModel = Company::find($modelTruck->company_id);
+       // $tripModel = $trip;
+        // $modelDriver = Driver::find($trip->driver_id);
         return view("trip.create_update", 
         [
             'actionMethod' => "view", 
             'actionDescription' => "View Record", 
             'record' => $trip,
-            'truckList' => $truck,
+            'truckList' => $truckList,
             'driverList' => $driver,
             'companyList' => $company,
             'tripRecord' => $trip,
             'expenseRecord' => $expense,
             'modalActionMethod' =>"view",
+            "modelTruck" => $modelTruck,
+            "tripModel" => $trip,
+            "driverModel" => $driverModel,
+            "companyModel" => $companyModel
+            // "modelDriver" => $modelDriver
             //'modalFormAction' => route('expense')
         ]);
     }

@@ -271,12 +271,14 @@ Truck -> {{$actionDescription}}
             
           </div>
           </div>
+          
       </div>
+      @include('expense.index')
     </div>
   </div>
 </div>
 
-<!--  -->
+
 @endsection
 
 @section("scripts")

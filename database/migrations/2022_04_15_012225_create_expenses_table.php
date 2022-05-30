@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Null_;
 
 class CreateExpensesTable extends Migration
 {
@@ -16,10 +17,10 @@ class CreateExpensesTable extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            $table->integer('trip_id')->nullable();
-            $table->integer('company_id')->required();
-            $table->integer('truck_id')->required();
-            $table->integer('driver_id')->nullable();
+            $table->string('trip_id', 20)->nullable();
+            $table->string('company_id', 20)->required();
+            $table->string('truck_id', 20)->required();
+            $table->string('driver_id', 20)->nullable();
             $table->string('ref_no', 20)->nullable();
             $table->string('stock_source', 100)->nullable();
             $table->string('item', 100)->required();

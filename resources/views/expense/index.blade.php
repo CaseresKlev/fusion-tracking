@@ -231,7 +231,7 @@ function drawTable(baselink, paramlink, startDate, endDate){
   if(startDate !== null || startDate !== ""){
     dataFilterSet = "startDate="+ startDate +",endDate="+ endDate +", ";
   }
-  var params = prepareAjaxParams(dataFilterSet + "trip={{$record->id}}, truck={{$record->truck_id}}, company={{$record->company_id}}, driver={{$record->driver_id}}") ;
+  var params = prepareAjaxParams(dataFilterSet + "trip={{$tripModel->id}}, truck={{$modelTruck->id}}, company={{$companyModel->id}}, driver={{$record->driver_id}}") ;
 
   console.log(params);
 

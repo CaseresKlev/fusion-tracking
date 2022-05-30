@@ -73,11 +73,9 @@
                             
                             @foreach($companyList  as $c)
                             <option value="{{$c->id}}" 
-                                @foreach($truckList as $t)
-                                    @if($t->company_id==$c->id)
+                                    @if($c->id==$modelTruck->company_id)
                                         selected
                                     @endif
-                                @endforeach
                                 >{{$c->name}}</option>
                             @endforeach
                             </select>
@@ -87,11 +85,12 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group ">
+                        <?php echo $record->id ?>
                             <label for="formGroupExampleInput" class="control-label font-weight-bold ">Truck:</label>
                             <select name="truck_id" id="truck_id" class="form-control form-control-lg disabledComponent" disabled>
                                 @foreach($truckList  as $t)
                                 <option value="{{$t->id}}" 
-                                        @if($t->id==$record->truck_id)
+                                        @if($t->id==$modelTruck->id)
                                             selected
                                         @endif
                                     >{{$t->name . ' | ' . $t->plate_no}}</option>
@@ -112,7 +111,7 @@
                                 <option value=""></option>
                                 @foreach($driverList  as $d)
                                 <option value="{{$d->id}}" 
-                                        @if($t->id==$record->truck_id)
+                                        @if($d->id==$record->driver_id)
                                             selected
                                         @endif
                                     >{{$d->firstname . ' ' . $d->lastname}}</option>

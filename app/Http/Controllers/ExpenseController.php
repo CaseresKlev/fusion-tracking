@@ -158,13 +158,36 @@ class ExpenseController extends Controller
 
         //DB::raw('CONCAT(drivers.firstname, " ", drivers.lastname) as driver'
 
+        // $expense = DB::table('expenses')
+        // ->join('companies' , 'expenses.company_id', "=", "companies.id")
+        // ->join('trucks', 'expenses.truck_id', '=', 'trucks.id')
+        // ->join('drivers', 'expenses.driver_id', '=', 'drivers.id')
+        // ->select('expenses.*', 'companies.name as company', 'trucks.name as truck', DB::raw('CONCAT(drivers.firstname, " ", drivers.lastname) as driver'));
+        // //->where('1' , "=" , '1')
 
+        $companyJoin = ", ' '  as company";
+        $truckJoin = ", ' '  as truck";
+        $driverJoin = ", ' '  as driver";
 
-        $expense = DB::table('expenses')
-        ->join('companies' , 'expenses.company_id', "=", "companies.id")
-        ->join('trucks', 'expenses.truck_id', '=', 'trucks.id')
-        ->join('drivers', 'expenses.driver_id', '=', 'drivers.id')
-        ->select('expenses.*', 'companies.name as company', 'trucks.name as truck', DB::raw('CONCAT(drivers.firstname, " ", drivers.lastname) as driver'));
+        $rawQuery = DB::raw ('DISTINCT(expenses.id) as distinct_id, expenses.*');
+        $expense = DB::table('expenses');
+        if($request->has('company') && !empty($request->company)){
+            $expense->join('companies' , 'expenses.company_id', "=", "companies.id");
+            $companyJoin = ', companies.name as company';
+        }
+        if($request->has('truck') && !empty($request->truck)){
+            $expense->join('trucks', 'expenses.truck_id', '=', 'trucks.id');
+            $truckJoin = ', trucks.name as truck';
+        }
+        if($request->has('driver') && !empty($request->driver)){
+            $expense->join('drivers', 'expenses.driver_id', '=', 'drivers.id');
+            $driverJoin = DB::raw(', CONCAT(drivers.firstname, " ", drivers.lastname) as driver');
+        }
+        
+        $expense->select(DB::raw($rawQuery . $companyJoin . $truckJoin . $driverJoin  ));
+        //)
+        //$expense->select('expenses.*', $companyJoin, $truckJoin, $driverJoin);
+        //$expense->select('expenses.*', 'companies.name as company', 'trucks.name as truck', DB::raw('CONCAT(drivers.firstname, " ", drivers.lastname) as driver'));
         //->where('1' , "=" , '1')
         
         if($request->has('trip') && !empty($request->trip)){
@@ -184,7 +207,7 @@ class ExpenseController extends Controller
             $expense->whereBetween('expenses.date',[date("Y-m-d", strtotime($request->startDate) ), date("Y-m-d", strtotime($request->endDate) ) ]);
         }
         $result = $expense->get();
-        //dd($expense);
+       //dd($expense->toSql());
         
         
         
