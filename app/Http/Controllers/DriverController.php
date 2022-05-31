@@ -198,7 +198,7 @@ class DriverController extends Controller
     }
 
     public function getAllDriver(){
-        $data = Driver::select('id', 'firstname', 'lastname')->get();
+        $data = Driver::select('id', 'firstname', 'middlename', 'lastname')->get();
         return $data;
     }
 }

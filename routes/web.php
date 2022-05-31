@@ -37,6 +37,8 @@ Route::get('/dashboard/company', [CompanyController::class, 'index'])->name('das
 
 
 Route::get('/dashboard/report', [ReportController::class, 'index'])->name('dashboard.report');
+Route::get('/dashboard/report/driver/{from?}/{to?}/{id?}', [ReportController::class, 'generateDriverReport'])->name('dashboard.report.driver');
+Route::get('/dashboard/report/company/{from?}/{to?}/{id?}', [ReportController::class, 'generateCompanyReport'])->name('dashboard.report.company');
 
 Route::resource('/dashboard/settings', SettingsController::class);
 Route::get('/Dashboard/settings/api/ajaxGetData', [SettingsController::class, 'ajaxGetData'])->name('settings.ajaxGetData');
