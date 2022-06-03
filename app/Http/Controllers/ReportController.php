@@ -227,7 +227,7 @@ class ReportController extends Controller
         $shareQuery = DB::select("SELECT settings.app_value_1 FROM `settings` WHERE settings.app_name = 'APP' and settings.app_section = 'TAX' and settings.app_field = 'RATE'");
         $taxRate = $shareQuery[0]->app_value_1;
         
-        dd($companyList);
+       // dd($companyList);
 
 
         //return "Company Reporting " . $from . " " . $to . " " . $id;
