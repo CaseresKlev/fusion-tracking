@@ -130,6 +130,7 @@ function drawTable(baselink, paramlink){
       "serverSide": true,
 		  responsive: true,
       searching: true,
+      order: [[10, 'desc']],
       columns: [
             // { data: 'truck_tooltip', render: function( data, type, row, meta){
             //   console.log(data);

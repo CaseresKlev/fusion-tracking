@@ -18,7 +18,7 @@ class myPDF extends FPDF{
         $this->Cell($pointX, $pointY, "Driver Billing Report", 0, 0, 'C');
         $this->Ln();
         $this->SetFont("Times", "", 12);
-        $this->Cell($pointX, 0, "For the Period of " . $this->period, 0, 0, 'C');
+        $this->Cell($pointX, 0, "For the period of " . $this->period, 0, 0, 'C');
         $this->Ln(2);
         $this->Ln(2);
         $this->Ln(2);
@@ -29,11 +29,11 @@ class myPDF extends FPDF{
         $this->SetY(-15);
         $this->SetFont('Arial', '', 9);
        // dd($this->driverModel);
-        $this->Cell(0, 10, strtoupper($this->footerText) . " ( " . $this->period . " ). Generated: " . date("Y-m-d H:i:s"), 0, 0, "L");
+        $this->Cell(0, 10, strtoupper($this->footerText) . " ( " . $this->period . " ). This is a system generated report. Generated on " . date("Y-m-d H:i:s"), 0, 0, "L");
         $this->Cell(0, 10, "Page " .$this->PageNo() . "/{nb}", 0, 0, "R");
     }
 
-    function generateDriverInfo($driverID, $driverName, $from, $to, $totalTrips, $grossIncome, $netIncome ){
+    function generateDriverInfo($driverID, $driverName, $from, $to, $totalTrips, $grossIncome, $netIncome, $share ){
         //$this->SetY(30);
         $heigth = 6;
         // $this->Ln();
@@ -51,7 +51,7 @@ class myPDF extends FPDF{
         $this->Cell(38, $heigth, number_format(floatval($grossIncome), 2, '.', ',') , 0, 0);
         $this->Ln();
         $this->Cell(205, $heigth, "", 0, 0);
-        $this->Cell(38, $heigth, "Net Income (10%): ", 0, 0);
+        $this->Cell(38, $heigth, "Net Income (". $share * 100 ."%): ", 0, 0);
         // Colors, line width and bold font
         $this->SetFillColor(0,255,0);
         $this->SetTextColor(255,0,0);
@@ -189,7 +189,7 @@ for($i=0; $i<count($dataList); $i++){
     $pdf->AliasNbPages();
     $pdf->SetFont('Arial','B',16);
     //dd($driverModel['id']);
-    $pdf->generateDriverInfo($driverModel['id'], $driverModel['firstname'] . " " . $driverModel['lastname'], $from, $to, $tripCount, $grossIncome, $netIncome);
+    $pdf->generateDriverInfo($driverModel['id'], $driverModel['firstname'] . " " . $driverModel['lastname'], $from, $to, $tripCount, $grossIncome, $netIncome, $share);
     //$pdf->Cell(40,10,'From: ' . $from . " To: " . $to . " ID: " . $driverModel->id);
 
     //TABLE
@@ -203,6 +203,19 @@ for($i=0; $i<count($dataList); $i++){
     $pdf->Ln(2);
     $pdf->Ln(2);
     $pdf->Cell(0, 0, "****** NOTHING FOLLOWS ******", 0, 0, 'C');
+    $pdf->Ln(2);
+    $pdf->Ln(2);
+    $pdf->Ln(2);
+    $pdf->Ln(2);
+    $pdf->Cell(0, 50, "I hereby certify that the above information is true and correct.", 0, 0, 'C');
+    $pdf->Ln(2);
+    //$pdf->SetTopMargin(120);
+    $pdf->Cell(0, 80, "_________________________________________", 0, 0, 'C');
+    $pdf->Ln(2);
+    $pdf->Ln(2);
+    $pdf->Ln(2);
+    $pdf->Ln(2);
+    $pdf->Cell(0, 80, "In-Charge", 0, 0, 'C');
 }
 
 $filename = "Driver Income Report (" . $period .")";

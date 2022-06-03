@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Driver;
+use App\Models\Expense;
 use App\Models\Trip;
+use App\Models\Truck;
 //use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -76,6 +79,24 @@ class ReportController extends Controller
         
         $dateFrom = DateTime::createFromFormat("Y-m-d", $from)->format("Y-d-m");
         $dateTo = DateTime::createFromFormat("Y-m-d", $to)->format("Y-d-m");
+        $period = $this->generateFormatedPeriod($from, $to);
+        
+        return view("report.driver_report",
+        [
+            "from"=> $from,
+            "to" => $to,
+            "dataList" => $dataList,
+            "driverlist" => $driverlist,
+            "tripCountList" => $tripCountList,
+            "grossIncomeList" =>$grossIncomeList,
+            "netIncomeList" =>$netIncomeList,
+            "period" =>$period,
+            "share" => $share
+        ]);
+    }
+
+    public function generateFormatedPeriod($from, $to){
+        //dd("Called");
         $period = "";
         //dd(date_format(DateTime::createFromFormat("Y-m-d", $from), "F Y"));
         if (date_format(DateTime::createFromFormat("Y-m-d", $from), "F Y")===date_format(DateTime::createFromFormat("Y-m-d", $to), "F Y")) {
@@ -92,22 +113,132 @@ class ReportController extends Controller
             $period .= date_format(DateTime::createFromFormat("Y-m-d", $to), "d") . ", ";
             $period .= date_format(DateTime::createFromFormat("Y-m-d", $to), "Y");
         }
+
+        return $period;
+    }
+
+    public function generateCompanyReport(Request $request){
         
-        return view("report.driver_report",
+        $from = strip_tags($request->from);
+        $to = strip_tags($request->to);
+        $id = strip_tags($request->id);
+        $period = $this->generateFormatedPeriod($from, $to);
+
+        $companyList = array();
+        if($request->id){
+            //dd("valid: " . $request->id);
+            array_push($companyList, Company::findOrFail($id)->toArray());
+        }else{
+            //dd("not valid! Go for report for all driver");
+            $companyList = Company::all()->toArray();
+        }
+
+
+        //dd($companyList);
+       // $companyTruckList = array();
+
+        //assigning trucks to the company
+        for($i=0; $i<count($companyList); $i++ ){
+            $company = $companyList[$i];
+            $truckList = Truck::where("company_id", "=", $company['id'])
+                        ->get()
+                        ->toArray();
+            $companyList[$i]['trucks'] =  $truckList;
+        }
+
+        //assigning all expenses of the company
+        for($i=0; $i<count($companyList); $i++ ){
+            $company = $companyList[$i];
+            $overallExpense = Expense::where("company_id", "=", $company['id'])
+                        ->whereBetween('date', [$from, $to])
+                        ->get()
+                        ->toArray();
+            $companyList[$i]['over_all_expense'] =  $overallExpense;
+        }
+        
+        //dd($companyList[0]['trucks'][0]['id']);
+
+
+        //assigning Trips Record to specific Truck of specific Company
+        for($i=0; $i<count($companyList); $i++){
+            $trucks = $companyList[$i]['trucks'];
+            for($j=0; $j<count($trucks); $j++){
+                //dd($companyList[$i]['trucks'][$j]);
+                $companyList[$i]['trucks'][$j]['truck_total_expense'] = 0;
+                $tripList = Trip::where("truck_id",  "=", $companyList[$i]['trucks'][$j]['id'])
+                ->whereBetween('date', [$from, $to])
+                ->get()
+                ->toArray();
+
+                // for($k=0; $k<count($tripList); $k++){
+                //     for($l=0; $l<$tripList[$l]; $l++){
+                //         $companyList[$i]['trucks'][$j]['truck_total_expense'] += $tripList[$l]['']
+                //     }
+                    
+                // }
+                $companyList[$i]['trucks'][$j]['trips'] = $tripList;
+                //dd($expenseList);
+            }
+        }
+
+        //assigning Expense to specific Truck of specific Company
+        for($i=0; $i<count($companyList); $i++){
+            $trucks = $companyList[$i]['trucks'];           
+            for($j=0; $j<count($trucks); $j++){
+                $companyList[$i]['trucks'][$j]['truck_total_expense'] = 0;
+                $trips = $companyList[$i]['trucks'][$j]['trips'];
+                for($k=0; $k<count($trips); $k++){
+                    $expenses = Expense::where("trip_id", "=", $trips[$k]['id'])
+                    ->whereBetween("date", [$from, $to])
+                    ->get()
+                    ->toArray();
+                    for($l=0; $l<count($expenses); $l++){
+                        $companyList[$i]['trucks'][$j]['truck_total_expense'] += $expenses[$l]['accumulated_total'];
+                    }
+                    $companyList[$i]['trucks'][$j]['trips'][$k]['expense'] = $expenses;
+                }
+            }
+        }
+        //dd($companyList); 
+
+        //Calculating Gross Income of the company 
+        for($i=0; $i<count($companyList); $i++){
+            $trucks = $companyList[$i]['trucks'];
+            $companyList[$i]['gross_income'] = 0;
+            $companyList[$i]['total_trips'] = 0;
+            for($j=0; $j<count($trucks); $j++){
+                $companyList[$i]['trucks'][$j]['truck_total_income'] = 0;
+                $trips = $companyList[$i]['trucks'][$j]['trips'];
+                for($k=0; $k<count($trips); $k++){
+
+                     //Computing Each Company gross total Income
+                    $companyList[$i]['gross_income'] += $companyList[$i]['trucks'][$j]['trips'][$k]['bill'];
+                    
+                    //Computing each truck total income
+                    $companyList[$i]['trucks'][$j]['truck_total_income'] += $companyList[$i]['trucks'][$j]['trips'][$k]['bill'];
+                    
+                    //Computing Each Company total trips
+                    $companyList[$i]['total_trips']++;
+                }
+            }
+        }
+        //dd($companyList);
+
+        $shareQuery = DB::select("SELECT settings.app_value_1 FROM `settings` WHERE settings.app_name = 'APP' and settings.app_section = 'TAX' and settings.app_field = 'RATE'");
+        $taxRate = $shareQuery[0]->app_value_1;
+        
+        dd($companyList);
+
+
+        //return "Company Reporting " . $from . " " . $to . " " . $id;
+        return view("report.company_report",
         [
             "from"=> $from,
             "to" => $to,
-            "dataList" => $dataList,
-            "driverlist" => $driverlist,
-            "tripCountList" => $tripCountList,
-            "grossIncomeList" =>$grossIncomeList,
-            "netIncomeList" =>$netIncomeList,
-            "period" =>$period
+            "companyList" => $companyList,
+            "period" =>$period,
+            "taxRate" => $taxRate
         ]);
-    }
-
-    public function generateCompanyReport(){
-        return "Company Reporting";
     }
 
     /**
