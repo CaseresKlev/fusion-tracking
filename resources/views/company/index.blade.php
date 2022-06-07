@@ -53,11 +53,18 @@
     </div>
   </div>
 </div>
+
+@include("report.modal_report_generate")
 @endsection
 
 @section("scripts")
 
 {{$dataTable->scripts()}}
+<script>
+
+  initiliazedReportFeatures();
+</script>
+
 <script src="{{asset('/js/globalFunctions.js')}}"></script>
 
 @endsection

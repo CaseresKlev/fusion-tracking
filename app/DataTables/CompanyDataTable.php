@@ -26,6 +26,7 @@ class CompanyDataTable extends DataTable
                 <div class="col icons-option" >
                 <a href="' . route("company.show", $dataRow->id) . '"><i class="fa-solid fa-eye"></i></a>
                 <a href="' . route("company.edit",$dataRow->id) . '"><i class="fas fa-edit"></i></a>
+                <a href="#"><i onclick="showReportGenerateModal(\'Generate Company Report\', '. $dataRow->id .', \'company\');" class="fa fa-file" aria-hidden="true"></i></a>
                 <a href="#" onclick="deleteRecord('. $dataRow->id .', \''. $dataRow->name .'\')"><i class="fa-solid fa-trash-can"></i></a>
                 </div>
                 </div>

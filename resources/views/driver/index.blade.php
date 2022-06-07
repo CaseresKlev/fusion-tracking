@@ -56,6 +56,7 @@
     </div>
   </div>
 </div>
+@include("report.modal_report_generate")
 @endsection
 
 @section('scripts')
@@ -107,6 +108,8 @@ $(function() {
          ]
          
     });
+
+    initiliazedReportFeatures();
 });
 
 

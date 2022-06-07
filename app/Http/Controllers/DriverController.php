@@ -35,6 +35,8 @@ class DriverController extends Controller
              <div class="col icons-option" >
              <a href="' . route("driver.show", $datarow->id) . '"><i class="fa-solid fa-eye"></i></a>
              <a href="' . route("driver.edit", $datarow->id) . '"><i class="fas fa-edit"></i></a>
+             <a href="#"><i onclick="showReportGenerateModal(\'Generate Driver Report\', '. $datarow->id .', \'driver\')" class="fa fa-file" aria-hidden="true"></i></a>
+             
              <a href="#" onclick="deleteRecord('. $datarow->id .',\''. $datarow->firstname .' ' . $datarow->lastname .'\')"><i class="fa-solid fa-trash-can"></i></a>
              </div>
              </div>

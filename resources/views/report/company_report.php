@@ -34,7 +34,7 @@ class myPDF extends FPDF{
         $this->SetY(-15);
         $this->SetFont('Arial', '', 9);
        // dd($this->driverModel);
-        $this->Cell(0, 10, strtoupper($this->footerText) . " (" . $this->period . "). This is a system generated report. Generated on " . date("Y-m-d H:i:s"), 0, 0, "L");
+        $this->Cell(0, 10, strtoupper($this->footerText) . " (" . $this->period . "). System Generated. Generated on " . date("Y-m-d H:i:s"), 0, 0, "L");
         $this->Cell(0, 10, "Page " .$this->PageNo() . "/{nb}", 0, 0, "R");
     }
 
@@ -439,6 +439,10 @@ $pdf->SetFont('Arial','B',16);
 
 
 $filename = "COMPANY REPORT (". $period .")";
+//dd(count($companyList));
+if(count($companyList)==1){
+    $filename = "COMPANY REPORT OF ". $companyList[0]['name'] ." (". $period .")";
+}
 //$pdf->Output("D", strtoupper($driverModel['lastname'] . " income report ") . "(" . $from . " to " . $to . ")". ".pdf");
 $pdf->Output("D", strtoupper($filename). ".pdf");
 ?>

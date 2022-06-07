@@ -219,7 +219,7 @@ for($i=0; $i<count($dataList); $i++){
 }
 
 $filename = "Driver Income Report (" . $period .")";
-if(count($dataList)===1){
+if(count($dataList)==1){
     $filename = $driverModel['firstname'] . " " . $driverModel['lastname'] . " income report (". $period .")";
 }
 //$pdf->Output("D", strtoupper($driverModel['lastname'] . " income report ") . "(" . $from . " to " . $to . ")". ".pdf");
