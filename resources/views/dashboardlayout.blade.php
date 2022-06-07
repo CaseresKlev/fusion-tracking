@@ -36,6 +36,7 @@
   <!-- CSS Files -->
   <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" />
   <link href=" {{asset('/css/now-ui-dashboard.css?v=1.5.0')}}" rel="stylesheet" />
+  <link href=" {{asset('/css/global.css')}}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <!-- <link href="{{asset('/css/demo.css')}}" rel="stylesheet" /> -->
   
