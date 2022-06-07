@@ -77,14 +77,12 @@
           <li class= @yield("driver")>
             <a href="{{ route('dashboard.driver') }}">
               <i class="now-ui-icons location_map-big"></i>
-              <!-- <i class="fas fa-steering-wheel"></i> -->
               <p>Driver</p>
             </a>
           </li>
           <li class= @yield("truck")>
             <a href="{{ route('dashboard.truck') }}">
-              <!-- <i class="now-ui-icons ui-1_bell-53"></i> -->
-              <i class="fa-solid fa-truck"></i>
+              <i class="now-ui-icons ui-1_bell-53"></i>
               <p>Truck</p>
             </a>
           </li>
@@ -97,20 +95,19 @@
           <li class= @yield("report")>
             <a href="{{ route('dashboard.report') }}">
               <i class="now-ui-icons design_bullet-list-67"></i>
-              <!-- <i class="fa-solid fa-file-chart-column"></i> -->
               <p>Report</p>
             </a>
           </li>
           <li class= @yield("settings")>
             <a href="{{ route('dashboard.settings') }}">
-            <i class="now-ui-icons design_bullet-list-67"></i>
+              <i class="now-ui-icons text_caps-small"></i>
               <p>Settings</p>
             </a>
           </li>
           <!-- <li class="active-pro">
             <a href="./upgrade.html">
               <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-              <p>My Account</p>
+              <p>Upgrade to PRO</p>
             </a>
           </li> -->
         </ul>
@@ -130,13 +127,13 @@
             </div>
             <a class="navbar-brand" href="#pablo">@yield('title')</a>
           </div>
-          <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
-          </button> -->
+          </button>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <!-- <form>
+            <form>
               <div class="input-group no-border">
                 <input type="text" value="" class="form-control" placeholder="Search...">
                 <div class="input-group-append">
@@ -145,47 +142,21 @@
                   </div>
                 </div>
               </div>
-            </form> -->
+            </form>
             <ul class="navbar-nav">
-              <!-- <li class="nav-item">
+              <li class="nav-item">
                 <a class="nav-link" href="#pablo">
                   <i class="now-ui-icons media-2_sound-wave"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Stats</span>
                   </p>
                 </a>
-              </li> -->
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ Auth::user()->name }}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <!-- <span class="dropdown-header">Dropdown header</span> -->
-                  <a href="{{ route('dashboard.account') }}" class="dropdown-item">
-                  <i class="fa-solid fa-user"></i>
-                    <p>My Account</p>
-                  </a>
-                  <a class="dropdown-item" href="#" id="logoutBtnd" onclick="logout()"> 
-                  <!-- <i class="now-ui-icons arrows-1_cloud-download-93"></i> -->
-                  <i class="fa-solid fa-right-from-bracket"></i>
-                  <p>Logout</p>
-                  <form method="POST" id="logoutForm" action="{{ route('logout') }}">
-                    @csrf
-
-                    <!-- <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link> -->
-                </form>
-                  </a>
-                </div>
-              </div>
-              <!-- <li class="nav-item dropdown">
+              </li>
+              <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="now-ui-icons location_world">{{ Auth::user()->name }}</i>
+                  <i class="now-ui-icons location_world"></i>
                   <p>
-                    <span class="d-lg-none d-md-block">{{ Auth::user()->name }} Some Actions</span>
+                    <span class="d-lg-none d-md-block">Some Actions</span>
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
@@ -195,17 +166,13 @@
                 </div>
               </li>
               <li class="nav-item">
-                 <a class="nav-link" href="#pablo">
-                  <div class="px-4">
-                      <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                      <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                  </div>
+                <a class="nav-link" href="#pablo">
                   <i class="now-ui-icons users_single-02"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Account</span>
                   </p>
                 </a>
-              </li> -->
+              </li>
             </ul>
           </div>
         </div>
@@ -290,16 +257,7 @@
       // Javascript method's body can be found in assets/js/demos.js
       demo.initDashboardPageCharts();
 
-      // $("#logoutBtn").click(function(){
-      //  // alert("on Logout");
-      // })
-
     });
-
-    function logout(){
-      $("#logoutForm").submit();
-      //alert("Logout");
-    }
   </script>
   @yield('scripts')
   <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
