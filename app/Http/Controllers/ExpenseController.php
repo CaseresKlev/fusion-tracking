@@ -207,7 +207,12 @@ class ExpenseController extends Controller
             $expense->whereBetween('expenses.date',[date("Y-m-d", strtotime($request->startDate) ), date("Y-m-d", strtotime($request->endDate) ) ]);
         }
         $result = $expense->get();
-       //dd($expense->toSql());
+
+        // for($i=0; $i<count($result); $i++){
+        //     $result[$i]->trip_id = '<a target="_blank" href="'.  route("trip.show", $result[$i]->trip_id) .'">'. $result[$i]->trip_id .'  </a>';    
+        // }
+        
+       //dd($result[0]->trip_id);
         
         
         

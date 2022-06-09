@@ -60,8 +60,10 @@
           Tracking
         </a>
       </div>
+      
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
+        @if(Auth::user()->type === "USER")
           <li class= @yield("dashboard") >
             <a href="{{ route('dashboard.index') }}">
               <i class="now-ui-icons design_app"></i>
@@ -70,14 +72,15 @@
           </li>
           <li class= @yield("trip")>
             <a href="{{ route('dashboard.trip') }}">
-              <i class="now-ui-icons education_atom"></i>
+              <!-- <i class="now-ui-icons education_atom"></i> -->
+              <i class="fas fa-dharmachakra"></i>
               <p>Trip</p>
             </a>
           </li>
           <li class= @yield("driver")>
             <a href="{{ route('dashboard.driver') }}">
-              <i class="now-ui-icons location_map-big"></i>
-              <!-- <i class="fas fa-steering-wheel"></i> -->
+              <!-- <i class="now-ui-icons location_map-big"></i> -->
+              <i class="fas fa-id-card-alt"></i>
               <p>Driver</p>
             </a>
           </li>
@@ -90,31 +93,55 @@
           </li>
           <li class= @yield("company")>
             <a href="{{ route('dashboard.company') }}">
-              <i class="now-ui-icons users_single-02"></i>
+            <i class="fas fa-building"></i>
               <p>Company</p>
             </a>
           </li>
           <li class= @yield("report")>
             <a href="{{ route('dashboard.report') }}">
-              <i class="now-ui-icons design_bullet-list-67"></i>
-              <!-- <i class="fa-solid fa-file-chart-column"></i> -->
+              <!-- <i class="now-ui-icons design_bullet-list-67"></i> -->
+              <i class="fas fa-flag-checkered"></i>
               <p>Report</p>
             </a>
           </li>
           <li class= @yield("settings")>
             <a href="{{ route('dashboard.settings') }}">
-            <i class="now-ui-icons design_bullet-list-67"></i>
+            <i class="fas fa-cogs"></i>
               <p>Settings</p>
             </a>
           </li>
-          <!-- <li class="active-pro">
-            <a href="./upgrade.html">
+          <li class= @yield("user")>
+            <a href="{{ route('user.show', Auth::user()->id) }}">
+            <i class="fa fa-user" aria-hidden="true"></i>
+              <p>My Account</p>
+            </a>
+          </li>
+
+          @elseif(Auth::user()->type === "ADMIN")
+          <li class= @yield("settings")>
+            <a href="{{ route('dashboard.settings') }}">
+            <i class="fas fa-cogs"></i>
+              <p>Settings</p>
+            </a>
+          </li>
+          <li class= @yield("user")>
+            <a href="{{ route('dashboard.user') }}">
+            <i class="now-ui-icons design_bullet-list-67"></i>
+              <p>Users</p>
+            </a>
+          </li>
+          <li class= @yield("account")>
+            <a href="{{ route('user.show', Auth::user()->id) }}">
               <i class="now-ui-icons arrows-1_cloud-download-93"></i>
               <p>My Account</p>
             </a>
-          </li> -->
+          </li>
+
+          @else
+          @endif
         </ul>
       </div>
+     
     </div>
     <div class="main-panel" id="main-panel">
       <!-- Navbar -->
@@ -157,11 +184,11 @@
               </li> -->
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ Auth::user()->name }}
+                {{ Auth::user()->name }} ({{Auth::user()->type}})
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <!-- <span class="dropdown-header">Dropdown header</span> -->
-                  <a href="{{ route('dashboard.account') }}" class="dropdown-item">
+                  <a href="{{ route('user.show', Auth::user()->id) }}" class="dropdown-item">
                   <i class="fa-solid fa-user"></i>
                     <p>My Account</p>
                   </a>

@@ -67,8 +67,10 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('/dashboard/expense', ExpenseController::class);
     Route::get('/dashboard/expense/api/getAjaxData/{trip?}/{truck?}/{company?}/{driver?}/', [ExpenseController::class, 'getAjaxData'])->name('expense.getAjaxData');
 
-    Route::resource('/dashboard/account', UserController::class);
-    Route::get('/dashboard/account', [UserController::class, 'index'])->name('dashboard.account');
+    Route::resource('/dashboard/user', UserController::class);
+    Route::get('/dashboard/user', [UserController::class, 'index'])->name('dashboard.user');
+    Route::get('/dashboard/user/reset-password/{user?}', [UserController::class, 'resetUserPassword'])->name('user.reset');
+    Route::get('/dashboard/user/api/getdata/{id?}', [UserController::class, 'getData'])->name('dashboard.user.api.getdata');
 });
 
 

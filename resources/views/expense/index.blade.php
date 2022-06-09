@@ -46,7 +46,10 @@
                 </table>
               </div>
               <div class="col">
+                @if($menuAccess != 'truck')
                 <span class="float-right"><button type="button" id="btnModalShow" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button></span>
+                @endif
+                
                 
               </div>
             </div>
@@ -99,6 +102,8 @@
     </div>
   </div>
 </div>
+<input type="hidden" name="menuAccess" id="menuAccess" value="{{$menuAccess}}">
+<input type="hidden" name="tripLink" id="tripLink" value="{{ route('dashboard.trip') }}">
 
 @section("scripts")
 
@@ -247,7 +252,31 @@ function drawTable(baselink, paramlink, startDate, endDate){
       $('#expense-table').dataTable( {
           "aaData": data,
           "columns": [
-              { "data": "trip_id", responsivePriority: 1, targets: 0 },
+              // { "data": "trip_id", 
+              //   responsivePriority: 1, 
+              //   targets: 0 
+              // },
+              
+              // { "data": "trip_id", 
+              //   "render": function(data, type, row, meta){
+              //     var tripLink = $("#tripLink").val();
+              //     "<a target='_blank' href='" + tripLink + row.id +"'>"+ row.id +"</a>";
+              //   },
+              //   responsivePriority: 1, 
+              //   targets: 0 
+              // },
+
+              // { "data": "trip_id", 
+              //   responsivePriority: 1, 
+              //   targets: 0 
+              // },
+              { 
+                "data": null,
+                "render": function(data, type, row, meta){
+                  var tripLink = $("#tripLink").val();
+                  return "<a target='_blank' href='" + tripLink + "/" + row.trip_id +"'>"+ row.trip_id +"</a>";
+                }
+              },
               { "data": "truck" , responsivePriority: 2, targets: 1},
               { "data": "company" , responsivePriority: 3, targets: 2 },
               { "data": "driver" , responsivePriority: 4, targets: 3},
@@ -262,16 +291,23 @@ function drawTable(baselink, paramlink, startDate, endDate){
               { 
                 "data": null,
                 "render": function(data, type, row, meta){
-                  return '<div class="row">'
-                 + '<div class="col icons-option" >'
+                  var menuAccess = $("#menuAccess").val();
+                  //alert(menuAccess);
+                   var dataRow = '<div class="row">'
+                 + '<div class="col icons-option" >';
                 // + '<a href="#"><i class="fa-solid fa-eye"></i></a>'
-                + '<a href="#!" onclick="editExpense(\''+  row.id + '\', \''+row.ref_no+'\', \''+ row.item +'\', \''+ row.quantity +'\',\''+ row.accumulated_total +'\', \''+ row.entry_by +'\', \''+ row.date +'\', \'gg\')"><i class="fas fa-edit"></i></a>'
-                + '<a href="#!" onclick="ajaxDeleteRecord('+ row.id +', \'Expense record for '+ 'Trip ID: ' + row.trip_id + ' and Truck Name: '+ row.truck +'\', \'{{route("expense.index")}}\', \'#expense-table\', \'#ajaxMsgHolder\')"><i class="fa-solid fa-trash-can"></i></a>'
-                + '</div>'
+                if(menuAccess!= "truck"){
+                  dataRow += '<a href="#!" onclick="editExpense(\''+  row.id + '\', \''+row.ref_no+'\', \''+ row.item +'\', \''+ row.quantity +'\',\''+ row.accumulated_total +'\', \''+ row.entry_by +'\', \''+ row.date +'\', \'gg\')"><i class="fas fa-edit"></i></a>'
+                + '<a href="#!" onclick="ajaxDeleteRecord('+ row.id +', \'Expense record for '+ 'Trip ID: ' + row.trip_id + ' and Truck Name: '+ row.truck +'\', \'{{route("expense.index")}}\', \'#expense-table\', \'#ajaxMsgHolder\')"><i class="fa-solid fa-trash-can"></i></a>';
+                }
+                
+                dataRow += '</div>'
                 + '</div>';
                   
+                return dataRow;
                 }
-              }
+              },
+              
           ],
           "responsive": true,
           "columnDefs": [

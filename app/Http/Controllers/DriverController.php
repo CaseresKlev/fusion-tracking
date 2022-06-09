@@ -109,7 +109,7 @@ class DriverController extends Controller
      */
     public function show(Driver $driver)
     {
-
+        //dd($driver);
         $settingController = new SettingsController();
         $status = $settingController->getSetting('APP', 'DRIVER', 'STATUS');
 

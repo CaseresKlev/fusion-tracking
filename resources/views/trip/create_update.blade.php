@@ -132,7 +132,7 @@ Trip -> {{$actionDescription}}
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="formGroupExampleInput2" class="control-label font-weight-bold">Weight:</label>
+                            <label for="formGroupExampleInput2" class="control-label font-weight-bold">Weight Metric Ton:</label>
                             <input type="text" class="form-control form-control-lg"  id="weigth" name="weigth" value="{{ $record->weigth }}" >
                         </div>   
                     </div>

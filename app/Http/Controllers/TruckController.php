@@ -108,6 +108,8 @@ class TruckController extends Controller
         $companyModel = Company::find($truck->company_id);
         $modelTruck = Truck::find($trip->truck_id);
 
+        $menuAccess = 'truck';
+
         return view("truck.create_update", 
         [
             'actionMethod' => "view", 
@@ -125,7 +127,8 @@ class TruckController extends Controller
             "tripModel" => $trip,
             "driverModel" => $driverModel,
             "companyModel" => $companyModel,
-            "truckModel" => $modelTruck
+            "truckModel" => $modelTruck,
+            "menuAccess" => $menuAccess
         ]);
     }
 

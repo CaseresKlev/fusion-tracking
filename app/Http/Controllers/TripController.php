@@ -111,6 +111,8 @@ class TripController extends Controller
         $modelTruck = Truck::find($trip->truck_id);
         $driverModel = Driver::find($trip->driver_id);
         $companyModel = Company::find($modelTruck->company_id);
+
+        $menuAccess = 'trip';
        // $tripModel = $trip;
         // $modelDriver = Driver::find($trip->driver_id);
         return view("trip.create_update", 
@@ -127,7 +129,8 @@ class TripController extends Controller
             "modelTruck" => $modelTruck,
             "tripModel" => $trip,
             "driverModel" => $driverModel,
-            "companyModel" => $companyModel
+            "companyModel" => $companyModel,
+            "menuAccess" => $menuAccess
             // "modelDriver" => $modelDriver
             //'modalFormAction' => route('expense')
         ]);

@@ -180,7 +180,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="formGroupExampleInput2" class="control-label font-weight-bold">DATE:</label>
-                            <input type="date" class="form-control form-control-sm" id="dateInput" name="date" value="{{$expenseRecord->date}}" required>
+                            <input type="text" class="form-control form-control-sm" id="dateinput" name="date" value="{{$tripRecord->date}}" required readonly="readonly">
                         </div>   
                     </div>
                 </div>
